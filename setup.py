@@ -7,7 +7,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="attribdict",
-    version="0.0.1",
+    version="0.0.2",
     author="Yiqun Chen",
     author_email="yiqunchen1999@gmail.com",
     description="An easy to use and easy to read dict",

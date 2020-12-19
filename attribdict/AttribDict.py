@@ -52,6 +52,7 @@ class AttribDict:
     def __getattr__(self, key):
         if not self._get_attr_name(key) in self.__dict__.keys():
             self.__dict__[self._get_attr_name(key)] = self.__class__()
+            self._update()
         return self.__dict__[self._get_attr_name(key)]
 
     def _update(self):
