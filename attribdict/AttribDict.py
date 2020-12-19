@@ -14,7 +14,12 @@ class AttribDict:
     >>> from attribdict import AttribDict as Dict
     >>> _d = {"attr"+str(i): i for i in range(4)}
     >>> d = Dict(_d)
-    >>> d.attr4.subattr1.subsubattr1 = 123
+    >>> print(d)
+    attr0: 0
+    attr1: 1
+    attr2: 2
+    attr3: 3
+    >>> d.attr4.subattr1.subsubattr1 = {1, 2, 4}
     >>> d.attr5 = {"subattr"+str(i): i for i in range(3)}
     >>> print(d)
     attr0: 0
@@ -23,7 +28,7 @@ class AttribDict:
     attr3: 3
     attr4:
         - subattr1:
-            - subsubattr1: 123
+            - subsubattr1: {1, 2, 4}
     attr5:
         - subattr0: 0
         - subattr1: 1
@@ -76,6 +81,9 @@ class AttribDict:
         return iter(self.as_dict().items())
 
     def as_dict(self):
+        """
+        Return a python dict of self.
+        """
         _dict = {}
         _prefix = self.__dict__["_prefix"]
         for key, value in self.__dict__.items():
@@ -85,11 +93,38 @@ class AttribDict:
                 _dict[_key] = value
         return _dict
 
+    def __copy__(self):
+        _dict = self.__class__()
+        _prefix = self.__dict__["_prefix"]
+        for key, value in self.__dict__.items():
+            if _prefix in key:
+                key = key.replace(_prefix, "")
+                _dict[key] = value
+        return _dict
+
+    def __deepcopy__(self, memo):
+        other = self.__class__()
+        _prefix = self.__dict__["_prefix"]
+        for key, value in self.__dict__.items():
+            if id(self) in memo:
+                continue
+            if _prefix in key:
+                _key = key.replace(_prefix, "")
+                other[copy.deepcopy(_key)] = copy.deepcopy(value, memo)
+        memo[id(self)] = self
+        return other
+
     def copy(self):
-        return copy.copy(self)
+        """
+        Return a shallow copy of self.
+        """
+        return self.__copy__()
 
     def deepcopy(self):
-        return copy.deepcopy(self)
+        """
+        Return a deep copy of self.
+        """
+        return self.__deepcopy__({})
 
     def __str__(self):
         start = "-"
