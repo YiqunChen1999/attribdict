@@ -1,14 +1,14 @@
 
-# AttributeDict
+# AttribDict
 
 ## Introduction
 
-AttributeDict is an easy to use and easy to read dict, it is more flexible and human readable.
+AttribDict is an easy to use and easy to read dict, it is more flexible and human readable.
 
 ## Examples
 
 ```python
->>> from attributedict import AttributeDict as Dict
+>>> from attribdict import AttribDict as Dict
 >>> _d = {"attr"+str(i): i for i in range(4)}
 >>> d = Dict(_d)
 >>> d.attr4.subattr1.subsubattr1 = 123
@@ -29,4 +29,6 @@ attr5:
 
 ## Installation
 
-pip install attributedict
+```
+pip install attribdict
+```
