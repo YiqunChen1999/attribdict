@@ -60,6 +60,12 @@ class AttribDict:
             self._update()
         return self.__dict__[self._get_attr_name(key)]
 
+    def hasattr(self, key):
+        if self._get_attr_name(key) in self.__dict__.keys():
+            return True
+        else:
+            return False
+
     def _update(self):
         _prefix = self.__dict__["_prefix"]
         _level = self.__dict__["_level"]

@@ -145,6 +145,15 @@ False
 False
 ```
 
+If you want to check whether an object contains attribute `attrX`, please use `obj.hasattr("attrX")` but `hasattr(obj, "attrX")` as the latter one will create a new AttributeDict instance named `attrX`. 
+
+```python
+>>> d.hasattr("attrX")
+False
+>>> hasattr(d, "attrX")
+True
+```
+
 ## Installation
 
 You can install AttribDict by pip.
