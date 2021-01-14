@@ -60,6 +60,15 @@ class AttribDict:
             self._update()
         return self.__dict__[self._get_attr_name(key)]
 
+    def __getstate__(self):
+        return self.__dict__
+
+    def __setstate__(self, state):
+        self.__dict__.update(state)
+
+    def __eq__(self, other):
+        return self.__dict__ == other.__dict__
+
     def hasattr(self, key):
         if self._get_attr_name(key) in self.__dict__.keys():
             return True
@@ -98,6 +107,15 @@ class AttribDict:
                 _key = key.replace(_prefix, "")
                 _dict[_key] = value
         return _dict
+
+    def keys(self):
+        return self.as_dict().keys()
+
+    def values(self):
+        return self.as_dict().values()
+
+    def items(self):
+        return self.as_dict().items()
 
     def __copy__(self):
         _dict = self.__class__()
