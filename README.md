@@ -159,11 +159,11 @@ Pickling AttribDict instance.
 ```python
 >>> import pickle
 >>> with open("path2file", "wb") as fp:
->>> ... pickle.dump(d, fp)
->>> ...
+...     pickle.dump(d, fp)
+...
 >>> with open("path2file", "rb") as fp:
->>> ... loaded_d = pickle.load(fp)
->>> ...
+...     loaded_d = pickle.load(fp)
+...
 >>> loaded_d == d
 True
 >>> loaded_d is d
